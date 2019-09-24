@@ -1,0 +1,33 @@
+---
+# Source: nfs-server-provisioner/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nfs-server-nfs-server-provisioner
+  labels:
+    app: nfs-server-provisioner
+    chart: nfs-server-provisioner-0.3.1
+    heritage: Tiller
+    release: nfs-server
+spec:
+  type: ClusterIP
+  ports:
+    - port: 2049
+      targetPort: nfs
+      protocol: TCP
+      name: nfs
+    - port: 20048
+      targetPort: mountd
+      protocol: TCP
+      name: mountd
+    - port: 51413
+      targetPort: rpcbind-tcp
+      protocol: TCP
+      name: rpcbind-tcp
+    - port: 51413
+      targetPort: rpcbind-udp
+      protocol: UDP
+      name: rpcbind-udp
+  selector:
+    app: nfs-server-provisioner
+    release: nfs-server

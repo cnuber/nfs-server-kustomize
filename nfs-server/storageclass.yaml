@@ -1,0 +1,21 @@
+---
+# Source: nfs-server-provisioner/templates/storageclass.yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: nfs
+  labels:
+    app: nfs-server-provisioner
+    chart: nfs-server-provisioner-0.3.1
+    heritage: Tiller
+    release: nfs-server
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: cluster.local/nfs-server-nfs-server-provisioner
+reclaimPolicy: Delete
+
+allowVolumeExpansion: true
+
+mountOptions:
+  - vers=4.1
+  - noatime
